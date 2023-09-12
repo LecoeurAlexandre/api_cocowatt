@@ -30,8 +30,7 @@ public class ReservationRepositoryImpl implements ReservationRepository {
     @Override
     public Reservation findById(int id) {
         ReservationEntity reservationEntity = reservationEntityRepository.findById(id).get();
-        Reservation reservation = modelMapper.map(reservationEntity , Reservation.class);
-        return reservation;
+        return modelMapper.map(reservationEntity , Reservation.class);
     }
 
     @Override

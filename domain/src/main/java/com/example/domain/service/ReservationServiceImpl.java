@@ -10,12 +10,11 @@ import com.example.domain.port.ReservationRepository;
 import com.example.domain.port.ReservationService;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class ReservationServiceImpl implements ReservationService{
 
-    private ReservationRepository reservationRepository;
+    private final ReservationRepository reservationRepository;
 
     public ReservationServiceImpl(ReservationRepository reservationRepository) {
         this.reservationRepository = reservationRepository;
@@ -23,9 +22,6 @@ public class ReservationServiceImpl implements ReservationService{
 
     @Override
     public void createReservation(User user, Trip trip, Car car) {
-        if (user.equals(null) || trip.equals(null) || car.equals(null)) {
-            throw new RuntimeException("Paramètre(s) invalide(s)");
-        }
         try {
             LocalDate date = LocalDate.now();
             Reservation reservation = new Reservation(user, trip, car, date);
@@ -41,8 +37,7 @@ public class ReservationServiceImpl implements ReservationService{
             throw new InvalidIdException(id);
         }
         try {
-            Reservation reservation = reservationRepository.findById(id);
-            return reservation;
+            return reservationRepository.findById(id);
         } catch (Exception e) {
             throw new EntityNotFoundException("Réservation");
         }

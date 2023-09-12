@@ -1,7 +1,6 @@
 package com.example.domain.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Reservation {
     private int id;

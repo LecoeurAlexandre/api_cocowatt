@@ -24,7 +24,7 @@ public class ReservationController {
 
 
     @PostMapping("")
-    public ResponseEntity post(@RequestBody ReservationDtoRequest reservationDtoRequest) {
+    public ResponseEntity<?> post(@RequestBody ReservationDtoRequest reservationDtoRequest) {
         try {
             reservationService.createReservation(
                     reservationDtoRequest.getUser(),
@@ -38,7 +38,7 @@ public class ReservationController {
     }
 
     @GetMapping("")
-    public ResponseEntity getAll() {
+    public ResponseEntity<?> getAll() {
         try {
             List<ReservationDtoResponse> reservationDtoResponseList = new ArrayList<>();
             for (Reservation r : reservationService.findAll()) {
@@ -52,7 +52,7 @@ public class ReservationController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity getById(@PathVariable int id) {
+    public ResponseEntity<?> getById(@PathVariable int id) {
         try {
             ReservationDtoResponse reservationDtoResponse = modelMapper.map(reservationService.findById(id), ReservationDtoResponse.class);
             return ResponseEntity.ok(reservationDtoResponse);
@@ -62,7 +62,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable int id) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         try {
             reservationService.delete(id);
             return ResponseEntity.ok("Réservation supprimée");
@@ -72,7 +72,7 @@ public class ReservationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable int id, @RequestBody ReservationDtoRequest reservationDtoRequest) {
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody ReservationDtoRequest reservationDtoRequest) {
         try {
             reservationService.update(id, modelMapper.map(reservationDtoRequest, Reservation.class));
             return ResponseEntity.ok("Réservation mise à jour");

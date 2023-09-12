@@ -30,8 +30,7 @@ public class CarRepositoryImpl implements CarRepository {
     @Override
     public Car findByID(int id) {
         CarEntity carEntity = carEntityRepository.findById(id).get();
-        Car car = modelMapper.map(carEntity, Car.class);
-        return car;
+        return modelMapper.map(carEntity, Car.class);
     }
 
     @Override

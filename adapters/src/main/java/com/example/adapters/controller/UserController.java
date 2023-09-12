@@ -3,11 +3,8 @@ package com.example.adapters.controller;
 import com.example.adapters.entity.UserDtoRequest;
 import com.example.adapters.entity.UserDtoResponse;
 import com.example.domain.entity.User;
-import com.example.domain.exception.EmptyParameterException;
-import com.example.domain.exception.InvalidIdException;
-import com.example.domain.exception.EntityNotFoundException;
+
 import com.example.domain.port.UserService;
-import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping("")
-    public ResponseEntity post(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone, @RequestParam String email, @RequestParam String password, @RequestParam boolean isAdmin, @RequestParam String imageUrl) {
+    public ResponseEntity<?> post(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone, @RequestParam String email, @RequestParam String password, @RequestParam boolean isAdmin, @RequestParam String imageUrl) {
         try {
             userService.createUser(firstName, lastName, phone, email, password, isAdmin, imageUrl);
             return ResponseEntity.status(HttpStatus.CREATED).body("Utilisateur créé");
@@ -39,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("")
-    public ResponseEntity getAll() {
+    public ResponseEntity<?> getAll() {
         List<UserDtoResponse> userDtoResponseList = new ArrayList<>();
         for (User u : userService.findAll()) {
             UserDtoResponse userDtoResponse = modelMapper.map(u, UserDtoResponse.class);
@@ -49,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity getById(@PathVariable int id) {
+    public ResponseEntity<?> getById(@PathVariable int id) {
         try {
             UserDtoResponse userDtoResponse = modelMapper.map(userService.findById(id), UserDtoResponse.class);
             return ResponseEntity.ok(userDtoResponse);
@@ -59,7 +56,7 @@ public class UserController {
     }
 
     @GetMapping("/lastname/{lastName}")
-    public ResponseEntity getAllByLastName(@PathVariable String lastName) {
+    public ResponseEntity<?> getAllByLastName(@PathVariable String lastName) {
         try {
             List<UserDtoResponse> userDtoResponseList = new ArrayList<>();
             for (User u : userService.findAllByLastName(lastName)) {
@@ -73,7 +70,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable int id, @RequestBody UserDtoRequest userDtoRequest) {
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody UserDtoRequest userDtoRequest) {
         try {
             User user = modelMapper.map(userDtoRequest, User.class);
             userService.update(id, user);
@@ -84,7 +81,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable int id) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         try {
             userService.delete(id);
             return ResponseEntity.ok("Utilisateur supprimé");
@@ -94,7 +91,7 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/addToCar/{carId}")
-    public ResponseEntity addUserToCar(@PathVariable int userId, @PathVariable int carId) {
+    public ResponseEntity<?> addUserToCar(@PathVariable int userId, @PathVariable int carId) {
         try {
             userService.addUserToCar(userId, carId);
             return ResponseEntity.ok("Voiture ajoutée à l'utilisateur");

@@ -1,6 +1,5 @@
 package com.example.adapters.entity;
 
-import com.example.domain.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

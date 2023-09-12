@@ -16,13 +16,13 @@ public class CarEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(nullable=false, unique=false)
+    @Column(nullable=false)
     private String brand;
-    @Column(nullable=false, unique=false)
+    @Column(nullable=false)
     private String model;
-    @Column(nullable=false, unique=false)
+    @Column(nullable=false)
     @Min(value = 1, message = "Il doit y avoir au moins une place disponible")
     private int availableSeats;
-    @Column(nullable=false, unique=false)
+    @Column(nullable=false)
     private boolean isElectric;
 }

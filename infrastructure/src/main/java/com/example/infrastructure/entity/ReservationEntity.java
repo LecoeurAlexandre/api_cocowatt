@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -21,15 +20,12 @@ public class ReservationEntity {
     private int id;
     @ManyToOne(fetch = FetchType.EAGER)
     @NotNull
-    //@JoinColumn(nullable = false)
     private UserEntity user;
     @ManyToOne(fetch = FetchType.EAGER)
     @NotNull
-    //@JoinColumn(nullable = false)
     private TripEntity trip;
     @ManyToOne(fetch = FetchType.EAGER)
     @NotNull
-    //@JoinColumn(nullable = false)
     private CarEntity car;
     private LocalDate date;
 }

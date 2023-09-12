@@ -1,7 +1,6 @@
 package com.example.infrastructure.entity;
 
 
-import com.example.domain.entity.Car;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -11,7 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,9 +21,9 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name="first_name", nullable=false, unique=false)
+    @Column(name="first_name", nullable=false)
     private String firstName;
-    @Column(name="last_name", nullable=false, unique=false)
+    @Column(name="last_name", nullable=false)
     private String lastName;
     @Column(name="phone", nullable=false, unique=true)
     @Pattern(regexp = "[0-9\\s]{10}", message = "Numéro de téléphone non valide")
@@ -33,7 +31,7 @@ public class UserEntity {
     @Column(name="email", nullable=false, unique=true)
     @Email(message = "Adresse mail non valide")
     private String email;
-    @Column(name="password", nullable=false, unique=false)
+    @Column(name="password", nullable=false)
     private String password;
     @OneToMany(fetch = FetchType.EAGER)
     @Nullable
@@ -43,7 +41,7 @@ public class UserEntity {
     private List<ReservationEntity> reservationList;
     @Column(name="isAdmin", nullable=false)
     private boolean isAdmin;
-    @Column(name="image_url", nullable=true)
+    @Column(name="image_url")
     private String imageUrl;
     @OneToOne
     private CarEntity car;

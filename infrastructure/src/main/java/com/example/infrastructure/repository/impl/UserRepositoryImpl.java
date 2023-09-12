@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -30,8 +29,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User findById(int id) {
         UserEntity userEntity = userEntityRepository.findById(id).get();
-        User user = modelMapper.map(userEntity, User.class);
-        return user;
+        return modelMapper.map(userEntity, User.class);
     }
 
     @Override

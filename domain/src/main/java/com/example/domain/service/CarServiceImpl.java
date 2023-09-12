@@ -1,26 +1,22 @@
 package com.example.domain.service;
 
 import com.example.domain.entity.Car;
-import com.example.domain.entity.User;
 import com.example.domain.exception.*;
 import com.example.domain.port.CarRepository;
 import com.example.domain.port.CarService;
-import com.example.domain.port.UserRepository;
 
 import java.util.List;
 
 public class CarServiceImpl implements CarService {
 
-    private CarRepository carRepository;
-    private UserRepository userRepository;
+    private final CarRepository carRepository;
 
-    public CarServiceImpl(CarRepository carRepository, UserRepository userRepository) {
+    public CarServiceImpl(CarRepository carRepository) {
         this.carRepository = carRepository;
-        this.userRepository = userRepository;
     }
 
     @Override
-    public void createCar(String brand, String model, int availableSeats, boolean isElectric) throws EmptyParameterException, InvalidSeatsException, InvalidIdException {
+    public void createCar(String brand, String model, int availableSeats, boolean isElectric) throws EmptyParameterException, InvalidSeatsException {
         if (brand.isEmpty() || model.isEmpty()) {
             throw new EmptyParameterException();
         }
@@ -41,8 +37,7 @@ public class CarServiceImpl implements CarService {
             throw new InvalidIdException(id);
         }
         try {
-            Car car = carRepository.findByID(id);
-            return car;
+            return carRepository.findByID(id);
         } catch (Exception e) {
             throw new EntityNotFoundException("Voiture");
         }

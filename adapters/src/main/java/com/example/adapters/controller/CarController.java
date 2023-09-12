@@ -3,9 +3,7 @@ package com.example.adapters.controller;
 import com.example.adapters.entity.CarDtoRequest;
 import com.example.adapters.entity.CarDtoResponse;
 import com.example.domain.entity.Car;
-import com.example.domain.exception.InvalidIdException;
 import com.example.domain.port.CarService;
-import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +25,7 @@ public class CarController {
     }
 
     @PostMapping("")
-    public ResponseEntity post(@RequestParam String brand, @RequestParam String model, @RequestParam int availableSeats, @RequestParam boolean isElectric) {
+    public ResponseEntity<?> post(@RequestParam String brand, @RequestParam String model, @RequestParam int availableSeats, @RequestParam boolean isElectric) {
         try {
             carService.createCar(brand, model, availableSeats, isElectric);
         } catch (Exception e) {
@@ -37,7 +35,7 @@ public class CarController {
     }
 
     @GetMapping("")
-    public ResponseEntity getAll() {
+    public ResponseEntity<?> getAll() {
         List<CarDtoResponse> carDtoResponseList = new ArrayList<>();
         for (Car c : carService.findAll()) {
             CarDtoResponse carDtoResponse = modelMapper.map(c, CarDtoResponse.class);
@@ -47,7 +45,7 @@ public class CarController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity getById(@PathVariable int id) throws InvalidIdException {
+    public ResponseEntity<?> getById(@PathVariable int id) {
         try {
             CarDtoResponse carDtoResponse = modelMapper.map(carService.findById(id), CarDtoResponse.class);
             return ResponseEntity.ok(carDtoResponse);
@@ -57,7 +55,7 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable int id, @RequestBody CarDtoRequest carDtoRequest) throws InvalidIdException {
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody CarDtoRequest carDtoRequest) {
         try {
             Car car = modelMapper.map(carDtoRequest, Car.class);
             carService.update(id, car);
@@ -68,7 +66,7 @@ public class CarController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable int id) throws InvalidIdException {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         try {
             carService.delete(id);
             return ResponseEntity.ok("Voiture supprimée");

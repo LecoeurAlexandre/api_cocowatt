@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class TripController {
     }
 
     @PostMapping("")
-    public ResponseEntity post(@RequestParam String startingPoint, @RequestParam String endPoint, @RequestParam String localDate, @RequestParam String localTime, @RequestParam int availableSeats, @RequestParam int distance, @RequestParam int userId) {
+    public ResponseEntity<?> post(@RequestParam String startingPoint, @RequestParam String endPoint, @RequestParam String localDate, @RequestParam String localTime, @RequestParam int availableSeats, @RequestParam int distance, @RequestParam int userId) {
         try {
             tripService.create(startingPoint, endPoint, localDate, localTime,availableSeats, distance, userId);
             return ResponseEntity.ok("Trajet ajouté");
@@ -35,7 +34,7 @@ public class TripController {
     }
 
     @GetMapping("")
-    public ResponseEntity getAll() {
+    public ResponseEntity<?> getAll() {
         try {
             List<TripDtoResponse> tripDtoResponseList = new ArrayList<>();
             for (Trip t : tripService.findAll()) {
@@ -49,7 +48,7 @@ public class TripController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity getById(@PathVariable int id) {
+    public ResponseEntity<?> getById(@PathVariable int id) {
         try {
             TripDtoResponse tripDtoResponse = modelMapper.map(tripService.findById(id), TripDtoResponse.class);
             return ResponseEntity.ok(tripDtoResponse);
@@ -59,7 +58,7 @@ public class TripController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable int id) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         try {
             tripService.delete(id);
             return ResponseEntity.ok("Trajet supprimé");
@@ -69,7 +68,7 @@ public class TripController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable int id, @RequestBody TripDtoRequest tripDtoRequest) {
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody TripDtoRequest tripDtoRequest) {
         try {
             tripService.update(id, modelMapper.map(tripDtoRequest, Trip.class));
             return ResponseEntity.ok("Trajet mis à jour");

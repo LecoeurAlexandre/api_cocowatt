@@ -10,20 +10,16 @@ import com.example.domain.port.TripRepository;
 import com.example.domain.port.TripService;
 import com.example.domain.port.UserRepository;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TripServiceImpl implements TripService {
 
-    private TripRepository tripRepository;
-    private UserRepository userRepository;
+    private final TripRepository tripRepository;
+    private final UserRepository userRepository;
 
     public TripServiceImpl(TripRepository tripRepository, UserRepository userRepository) {
         this.tripRepository = tripRepository;
@@ -64,8 +60,7 @@ public class TripServiceImpl implements TripService {
             throw new InvalidIdException(id);
         }
         try {
-            Trip trip = tripRepository.findById(id);
-            return trip;
+            return tripRepository.findById(id);
         } catch (Exception e) {
             throw new EntityNotFoundException("Trajet");
         }

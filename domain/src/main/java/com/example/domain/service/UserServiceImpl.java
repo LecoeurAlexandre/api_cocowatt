@@ -8,7 +8,6 @@ import com.example.domain.exception.*;
 import com.example.domain.port.CarRepository;
 import com.example.domain.port.UserRepository;
 import com.example.domain.port.UserService;
-import jakarta.annotation.security.PermitAll;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +15,8 @@ import java.util.regex.Pattern;
 
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private CarRepository carRepository;
+    private final UserRepository userRepository;
+    private final CarRepository carRepository;
 
     public UserServiceImpl(UserRepository userRepository, CarRepository carRepository) {
         this.userRepository = userRepository;
@@ -67,8 +66,7 @@ public class UserServiceImpl implements UserService {
             throw new InvalidIdException(id);
         }
         try {
-            User user = userRepository.findById(id);
-            return user;
+            return userRepository.findById(id);
         } catch (Exception e) {
             throw new EntityNotFoundException("Utilisateur");
         }

@@ -30,8 +30,7 @@ public class TripRepositoryImpl implements TripRepository {
     @Override
     public Trip findById(int id) {
         TripEntity tripEntity = tripEntityRepository.findById(id).get();
-        Trip trip = modelMapper.map(tripEntity, Trip.class);
-        return trip;
+        return modelMapper.map(tripEntity, Trip.class);
     }
 
     @Override
