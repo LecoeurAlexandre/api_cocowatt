@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(String firstName, String lastName, String phone, String email, String password, boolean isAdmin, String imageUrl) throws EmptyParameterException, InvalidEmailException, InvalidPhoneException, EmailAlreadyExistsException, PhoneAlreadyExistsException {
+    public User createUser(String firstName, String lastName, String phone, String email, String password, boolean isAdmin, String imageUrl) throws EmptyParameterException, InvalidEmailException, InvalidPhoneException, EmailAlreadyExistsException, PhoneAlreadyExistsException {
         if (firstName.isEmpty() || lastName.isEmpty() || phone.isEmpty() || email.isEmpty() || password.isEmpty()) {
             throw new EmptyParameterException();
         }
@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
             Car car = null;
             User user = new User(firstName, lastName, phone, email, password, tripList, reservationList, isAdmin, imageUrl, car);
             userRepository.save(user);
+            return user;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -142,6 +143,32 @@ public class UserServiceImpl implements UserService {
             User user = userRepository.findById(userId);
             user.setCar(car);
             userRepository.save(user);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public User findByEmailAndPassword(String email, String password) throws EmptyParameterException {
+        if (email.isEmpty() || password.isEmpty()) {
+            throw new EmptyParameterException();
+        }
+        try {
+            User user = userRepository.findByEmailAndPassword(email, password);
+            return user;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public User findByEmail(String email) throws EmptyParameterException {
+        if (email.isEmpty()) {
+            throw new EmptyParameterException();
+        }
+        try {
+            User user = userRepository.findByEmail(email);
+            return user;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

@@ -61,4 +61,18 @@ public class UserRepositoryImpl implements UserRepository {
         }
         return userList;
     }
+
+    @Override
+    public User findByEmailAndPassword(String email, String password) {
+        UserEntity userEntity = userEntityRepository.findByEmailAndPassword(email, password);
+        User user = modelMapper.map(userEntity, User.class);
+        return user;
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        UserEntity userEntity = userEntityRepository.findByEmail(email);
+        User user = modelMapper.map(userEntity, User.class);
+        return user;
+    }
 }
