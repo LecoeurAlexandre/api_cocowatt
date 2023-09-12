@@ -37,7 +37,6 @@ public class TripEntity {
     @JoinColumn(nullable = false)
     private UserEntity user;
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "reservation_id", nullable = false)
     private List<ReservationEntity> reservationEntityList = new ArrayList<>();
 
 }

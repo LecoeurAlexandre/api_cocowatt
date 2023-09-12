@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("")
-    public ResponseEntity post(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone, @RequestParam String email, @RequestParam String password, @RequestParam boolean isAdmin, @RequestParam String imageUrl) throws EmptyParameterException {
+    public ResponseEntity post(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone, @RequestParam String email, @RequestParam String password, @RequestParam boolean isAdmin, @RequestParam String imageUrl) {
         try {
             userService.createUser(firstName, lastName, phone, email, password, isAdmin, imageUrl);
             return ResponseEntity.status(HttpStatus.CREATED).body("Utilisateur créé");
@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity getById(@PathVariable int id) throws EntityNotFoundException, InvalidIdException {
+    public ResponseEntity getById(@PathVariable int id) {
         try {
             UserDtoResponse userDtoResponse = modelMapper.map(userService.findById(id), UserDtoResponse.class);
             return ResponseEntity.ok(userDtoResponse);
@@ -73,7 +73,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable int id, @RequestBody UserDtoRequest userDtoRequest) throws EntityNotFoundException, InvalidIdException {
+    public ResponseEntity update(@PathVariable int id, @RequestBody UserDtoRequest userDtoRequest) {
         try {
             User user = modelMapper.map(userDtoRequest, User.class);
             userService.update(id, user);
@@ -93,7 +93,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/addUser/{userId}/toUser/{carId}")
+    @PostMapping("/{userId}/addToCar/{carId}")
     public ResponseEntity addUserToCar(@PathVariable int userId, @PathVariable int carId) {
         try {
             userService.addUserToCar(userId, carId);

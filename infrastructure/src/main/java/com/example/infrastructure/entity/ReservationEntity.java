@@ -1,6 +1,7 @@
 package com.example.infrastructure.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,14 +20,16 @@ public class ReservationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false)
+    @NotNull
+    //@JoinColumn(nullable = false)
     private UserEntity user;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false)
+    @NotNull
+    //@JoinColumn(nullable = false)
     private TripEntity trip;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false)
+    @NotNull
+    //@JoinColumn(nullable = false)
     private CarEntity car;
-    @Column(name = "reservation_date")
     private LocalDate date;
 }

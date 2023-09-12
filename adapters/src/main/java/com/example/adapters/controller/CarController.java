@@ -46,7 +46,7 @@ public class CarController {
         return ResponseEntity.ok(carDtoResponseList);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity getById(@PathVariable int id) throws InvalidIdException {
         try {
             CarDtoResponse carDtoResponse = modelMapper.map(carService.findById(id), CarDtoResponse.class);

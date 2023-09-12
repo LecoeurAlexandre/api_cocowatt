@@ -48,7 +48,7 @@ public class TripController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity getById(@PathVariable int id) {
         try {
             TripDtoResponse tripDtoResponse = modelMapper.map(tripService.findById(id), TripDtoResponse.class);
