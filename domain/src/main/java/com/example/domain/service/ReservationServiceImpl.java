@@ -4,6 +4,7 @@ import com.example.domain.entity.Car;
 import com.example.domain.entity.Reservation;
 import com.example.domain.entity.Trip;
 import com.example.domain.entity.User;
+import com.example.domain.exception.EntityNotFoundException;
 import com.example.domain.exception.InvalidIdException;
 import com.example.domain.port.ReservationRepository;
 import com.example.domain.port.ReservationService;
@@ -35,7 +36,7 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
     @Override
-    public Reservation findById(int id) throws InvalidIdException {
+    public Reservation findById(int id) throws InvalidIdException, EntityNotFoundException {
         if (id <= 0) {
             throw new InvalidIdException(id);
         }
@@ -43,7 +44,7 @@ public class ReservationServiceImpl implements ReservationService{
             Reservation reservation = reservationRepository.findById(id);
             return reservation;
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new EntityNotFoundException("Réservation");
         }
     }
 

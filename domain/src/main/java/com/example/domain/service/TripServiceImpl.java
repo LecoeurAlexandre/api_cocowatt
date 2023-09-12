@@ -3,6 +3,7 @@ package com.example.domain.service;
 import com.example.domain.entity.Reservation;
 import com.example.domain.entity.Trip;
 import com.example.domain.entity.User;
+import com.example.domain.exception.EntityNotFoundException;
 import com.example.domain.exception.InvalidIdException;
 import com.example.domain.exception.InvalidSeatNumberException;
 import com.example.domain.port.TripRepository;
@@ -58,7 +59,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public Trip findById(int id) throws InvalidIdException {
+    public Trip findById(int id) throws InvalidIdException, EntityNotFoundException {
         if (id <= 0) {
             throw new InvalidIdException(id);
         }
@@ -66,7 +67,7 @@ public class TripServiceImpl implements TripService {
             Trip trip = tripRepository.findById(id);
             return trip;
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new EntityNotFoundException("Trajet");
         }
     }
 

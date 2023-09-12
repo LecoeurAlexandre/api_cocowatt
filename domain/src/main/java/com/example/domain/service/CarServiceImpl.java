@@ -2,10 +2,7 @@ package com.example.domain.service;
 
 import com.example.domain.entity.Car;
 import com.example.domain.entity.User;
-import com.example.domain.exception.EmptyParameterException;
-import com.example.domain.exception.InvalidIdException;
-import com.example.domain.exception.InvalidSeatsException;
-import com.example.domain.exception.NoUserAssignedToCarException;
+import com.example.domain.exception.*;
 import com.example.domain.port.CarRepository;
 import com.example.domain.port.CarService;
 import com.example.domain.port.UserRepository;
@@ -39,12 +36,16 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car findById(int id) throws InvalidIdException {
+    public Car findById(int id) throws InvalidIdException, EntityNotFoundException {
         if (id <= 0) {
             throw new InvalidIdException(id);
         }
-        Car car = carRepository.findByID(id);
-        return car;
+        try {
+            Car car = carRepository.findByID(id);
+            return car;
+        } catch (Exception e) {
+            throw new EntityNotFoundException("Voiture");
+        }
     }
 
     @Override
