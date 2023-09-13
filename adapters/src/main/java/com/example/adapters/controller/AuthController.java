@@ -43,14 +43,17 @@ public class AuthController {
             LoginResponseDTO loginResponseDTO = new LoginResponseDTO(generator.generateToken(authentication));
             return ResponseEntity.ok((loginResponseDTO));
             //return ResponseEntity.ok(LoginResponseDTO.builder().token(generator.generateToken(authentication)).build());
-        }catch (Exception ex) {
-            throw new RuntimeException();
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 
+    //Propriété isAdmin est mise en "false" par défaut, car cette méthode sera appelée lorsque l'utilisateur s'inscrit par lui même
+    //Pour créer un admin il faut passer par la méthode "create" dans "UserController"
     @PostMapping("register")
-    public ResponseEntity<RegisterResponseDTO> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
+    public ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
         try {
+            registerRequestDTO.setAdmin(false);
             User user = userService.createUser(
                     registerRequestDTO.getFirstName(),
                     registerRequestDTO.getLastName(),
@@ -60,9 +63,9 @@ public class AuthController {
                     registerRequestDTO.isAdmin(),
                     registerRequestDTO.getImageUrl()
             );
-            return ResponseEntity.ok(RegisterResponseDTO.builder().id(user.getId()).message("User created").build());
-        }catch (Exception ex) {
-            throw new RuntimeException();
+            return ResponseEntity.ok("Inscription effectuée");
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

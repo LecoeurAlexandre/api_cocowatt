@@ -25,7 +25,7 @@ public class UserController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("")
+    @PostMapping("/create")
     public ResponseEntity<?> post(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone, @RequestParam String email, @RequestParam String password, @RequestParam boolean isAdmin, @RequestParam String imageUrl) {
         try {
             userService.createUser(firstName, lastName, phone, email, password, isAdmin, imageUrl);
