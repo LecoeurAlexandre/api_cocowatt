@@ -11,4 +11,6 @@ public interface UserRepository {
     List<User> findAll();
     void delete(User user);
     List<User> findByLastName(String lastName);
+    User findByEmailAndPassword(String email, String password);
+    User findByEmail(String email);
 }
