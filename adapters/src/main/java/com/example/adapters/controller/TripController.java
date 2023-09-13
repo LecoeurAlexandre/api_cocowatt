@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/trip")
+@CrossOrigin("*")
 public class TripController {
 
     private final ModelMapper modelMapper;
