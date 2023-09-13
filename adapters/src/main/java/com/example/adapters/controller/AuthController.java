@@ -38,9 +38,11 @@ public class AuthController {
     @PostMapping("login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
         try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword()));
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(), loginRequestDTO.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            return ResponseEntity.ok(LoginResponseDTO.builder().token(generator.generateToken(authentication)).build());
+            LoginResponseDTO loginResponseDTO = new LoginResponseDTO(generator.generateToken(authentication));
+            return ResponseEntity.ok((loginResponseDTO));
+            //return ResponseEntity.ok(LoginResponseDTO.builder().token(generator.generateToken(authentication)).build());
         }catch (Exception ex) {
             throw new RuntimeException();
         }
