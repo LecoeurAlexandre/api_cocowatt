@@ -9,4 +9,5 @@ public interface CarRepository {
     Car findByID(int id);
     List<Car> findAll();
     void delete(Car car);
+    int findAllElectricCars();
 }

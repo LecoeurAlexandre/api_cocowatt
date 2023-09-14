@@ -108,4 +108,28 @@ public class TripServiceImpl implements TripService {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    @Override
+    public int[] calcTripNumbers() {
+        // Récupération de tous les trajets
+        List<Trip> trips = this.findAll();
+        // Récupération date d'aujourd'hui
+        LocalDate today = LocalDate.now();
+
+        int doneTrips = 0;
+        int notDoneTrips = 0;
+        int totalKm = 0;
+        for (Trip trip : trips) {
+            int compareValue = today.compareTo(trip.getLocalDate());
+            if (compareValue>0) {
+                ++doneTrips;
+                totalKm += trip.getDistance();
+            } else {
+                ++notDoneTrips;
+            }
+        }
+        int[] tripsNumbers = {doneTrips, notDoneTrips, totalKm};
+        return tripsNumbers;
+    }
+
 }

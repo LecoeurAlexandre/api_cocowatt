@@ -83,4 +83,15 @@ public class CarServiceImpl implements CarService {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    @Override
+    public double electricCarsPercentage() {
+        try {
+            int carNumber = this.findAll().size();
+            int electricCarsNumber = carRepository.findAllElectricCars();
+            return (double) (electricCarsNumber * 100)/carNumber;
+        } catch (Exception e ) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }

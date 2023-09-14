@@ -2,6 +2,8 @@ package com.example.adapters.controller;
 
 import com.example.adapters.entity.UserDtoRequest;
 import com.example.adapters.entity.UserDtoResponse;
+import com.example.adapters.entity.UserManagementResponseDTO;
+import com.example.adapters.entity.UsersListDTO;
 import com.example.domain.entity.User;
 
 import com.example.domain.port.UserService;
@@ -55,16 +57,27 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @GetMapping("/adm/{id}")
+    public ResponseEntity getByIdAdmin(@PathVariable int id) {
+        try {
+            UserManagementResponseDTO userDtoResponse = modelMapper.map(userService.findById(id), UserManagementResponseDTO.class);
+            return ResponseEntity.ok(userDtoResponse);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     @GetMapping("/lastname/{lastName}")
     public ResponseEntity<?> getAllByLastName(@PathVariable String lastName) {
         try {
-            List<UserDtoResponse> userDtoResponseList = new ArrayList<>();
+            UsersListDTO usersListDTO = new UsersListDTO();
+            List<UserManagementResponseDTO> userDtoResponseList = new ArrayList<>();
             for (User u : userService.findAllByLastName(lastName)) {
-                UserDtoResponse userDtoResponse = modelMapper.map(u, UserDtoResponse.class);
-                userDtoResponseList.add(userDtoResponse);
+                UserManagementResponseDTO userManagementResponseDTO = modelMapper.map(u, UserManagementResponseDTO.class);
+                userDtoResponseList.add(userManagementResponseDTO);
             }
-            return ResponseEntity.ok(userDtoResponseList);
+            usersListDTO.setList(userDtoResponseList);
+            return ResponseEntity.ok(usersListDTO);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
