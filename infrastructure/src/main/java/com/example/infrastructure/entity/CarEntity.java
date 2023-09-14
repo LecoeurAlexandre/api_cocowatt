@@ -25,7 +25,4 @@ public class CarEntity {
     private int availableSeats;
     @Column(nullable=false)
     private boolean isElectric;
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
 }

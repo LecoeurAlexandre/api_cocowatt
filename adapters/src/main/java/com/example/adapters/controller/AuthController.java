@@ -32,7 +32,7 @@ public class AuthController {
 
 
     @PostMapping("login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+    public ResponseEntity login(@RequestBody LoginRequestDTO loginRequestDTO) {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(), loginRequestDTO.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -43,6 +43,6 @@ public class UserEntity {
     private boolean isAdmin;
     @Column(name="image_url")
     private String imageUrl;
-    @OneToOne(mappedBy = "user")
+    @OneToOne
     private CarEntity car;
 }
