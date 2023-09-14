@@ -23,12 +23,15 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public void createRating(int value, String comment, int userId) throws EmptyParameterException, InvalidValueException {
-        if (comment.isEmpty()) {
+    public void createRating(int value, String comment, int userId) throws EmptyParameterException, InvalidValueException, InvalidIdException {
+        if (comment == null || comment.isEmpty()) {
             throw new EmptyParameterException();
         }
         if (value <= 0) {
             throw new InvalidValueException();
+        }
+        if (userId <= 0) {
+            throw new InvalidIdException(userId);
         }
         try {
             User user = userRepository.findById(userId);
@@ -43,8 +46,11 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public Rating getById(String id) throws InvalidIdException {
-        if (id.isEmpty()) {
+    public Rating getById(String id) throws InvalidIdException, EmptyParameterException {
+        if (id == null || id.isEmpty()) {
+            throw new EmptyParameterException();
+        }
+        if (Integer.parseInt(id) <= 0) {
             throw new InvalidIdException(Integer.parseInt(id));
         }
         try {
@@ -76,8 +82,11 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public void delete(String id) throws InvalidIdException {
-        if (id.isEmpty()) {
+    public void delete(String id) throws InvalidIdException, EmptyParameterException {
+        if (id == null ||id.isEmpty()) {
+            throw new EmptyParameterException();
+        }
+        if (Integer.parseInt(id) <= 0) {
             throw new InvalidIdException(Integer.parseInt(id));
         }
         try {
@@ -89,9 +98,15 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public void update(String id, Rating rating) throws InvalidIdException {
-        if (id.isEmpty()) {
+    public void update(String id, Rating rating) throws InvalidIdException, EmptyParameterException {
+        if (id == null || id.isEmpty()) {
+            throw new EmptyParameterException();
+        }
+        if (Integer.parseInt(id) <= 0) {
             throw new InvalidIdException(Integer.parseInt(id));
+        }
+        if (rating == null) {
+            throw new NullPointerException();
         }
         try {
             Rating ratingToUpdate = ratingRepository.findById(id);
