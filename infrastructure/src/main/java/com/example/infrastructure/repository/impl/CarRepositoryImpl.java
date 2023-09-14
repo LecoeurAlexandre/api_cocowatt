@@ -50,4 +50,9 @@ public class CarRepositoryImpl implements CarRepository {
         CarEntity carEntity = modelMapper.map(car, CarEntity.class);
         carEntityRepository.delete(carEntity);
     }
+
+    @Override
+    public int findAllElectricCars() {
+        return carEntityRepository.getCarCount();
+    }
 }

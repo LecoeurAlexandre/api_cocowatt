@@ -17,4 +17,6 @@ public interface TripService {
 
     void delete(int id) throws InvalidIdException;
     void update(int id, Trip trip) throws InvalidIdException;
+    int[] calcTripNumbers();
+
 }

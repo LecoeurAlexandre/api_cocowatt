@@ -16,4 +16,5 @@ public interface CarService {
     List<Car> findAll();
     void delete(int id) throws InvalidIdException;
     void update(int id, Car car) throws InvalidIdException;
+    double electricCarsPercentage();
 }

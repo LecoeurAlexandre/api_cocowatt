@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/stats")
 public class StatController {
     private final UserService userService;
-
     private final ReservationService reservationService;
     private final TripService tripService;
     private final CarService carService;
@@ -26,9 +25,21 @@ public class StatController {
         this.carService = carService;
     }
 
-    @GetMapping()
+    @GetMapping("")
     public ResponseEntity get() {
-        StatDTO statDTO = new StatDTO();
-        int driversCount = userService.driversCount();
+        try {
+            StatDTO statDTO = new StatDTO();
+            statDTO.setDrivers(carService.findAll().size());
+            statDTO.setTravellers(userService.findAll().size() - statDTO.getDrivers());
+            statDTO.setElectricPercentage(carService.electricCarsPercentage());
+            int[] trips = tripService.calcTripNumbers();
+            statDTO.setDoneTrips(trips[0]);
+            statDTO.setNotDoneTrips(trips[1]);
+            statDTO.setKm(trips[2]);
+            statDTO.setBooks(reservationService.findAll().size());
+            return ResponseEntity.ok(statDTO);
+        } catch (Exception e ) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

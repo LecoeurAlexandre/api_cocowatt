@@ -13,6 +13,6 @@ public class StatDTO {
     private double electricPercentage;
     private int doneTrips;
     private int notDoneTrips;
-    private double km;
+    private int km;
     private int books;
 }
