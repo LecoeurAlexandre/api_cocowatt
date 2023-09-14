@@ -34,7 +34,7 @@ public class AuthController {
 
 
     @PostMapping("login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO) {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(), loginRequestDTO.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -42,7 +42,7 @@ public class AuthController {
             return ResponseEntity.ok((loginResponseDTO));
             //return ResponseEntity.ok(LoginResponseDTO.builder().token(generator.generateToken(authentication)).build());
         }catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -63,7 +63,7 @@ public class AuthController {
             );
             return ResponseEntity.ok("Inscription effectuée");
         }catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

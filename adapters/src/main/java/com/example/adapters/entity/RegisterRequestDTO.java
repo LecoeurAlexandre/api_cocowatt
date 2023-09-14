@@ -20,7 +20,6 @@ public class RegisterRequestDTO {
     private String phone;
     private String email;
     private String password;
-
     private boolean isAdmin;
     private String imageUrl;
 }
