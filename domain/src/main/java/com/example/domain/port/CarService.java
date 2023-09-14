@@ -1,7 +1,6 @@
 package com.example.domain.port;
 
 import com.example.domain.entity.Car;
-import com.example.domain.entity.User;
 import com.example.domain.exception.*;
 
 import java.util.List;

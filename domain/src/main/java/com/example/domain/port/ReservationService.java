@@ -7,7 +7,6 @@ import com.example.domain.entity.User;
 import com.example.domain.exception.EntityNotFoundException;
 import com.example.domain.exception.InvalidIdException;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ReservationService {

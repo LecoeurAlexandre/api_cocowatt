@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
         if (firstName.isEmpty() || lastName.isEmpty() || phone.isEmpty() || email.isEmpty() || password.isEmpty()) {
             throw new EmptyParameterException();
         }
-        //Si imageUrl est vide ou incorrecte on assigne une image par défaut
+        //Si imageUrl est vide ou n'est pas une URL on assigne une image par défaut
         if (imageUrl.isEmpty() || !Pattern.compile("^(https?|ftp)://[^\\s/$.?#].[^\\s]*$").matcher(imageUrl).matches()) {
             imageUrl = "https://isobarscience-1bfd8.kxcdn.com/wp-content/uploads/2020/09/default-profile-picture1.jpg";
         }
@@ -152,8 +152,7 @@ public class UserServiceImpl implements UserService {
             throw new EmptyParameterException();
         }
         try {
-            User user = userRepository.findByEmailAndPassword(email, password);
-            return user;
+            return userRepository.findByEmailAndPassword(email, password);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -165,8 +164,7 @@ public class UserServiceImpl implements UserService {
             throw new EmptyParameterException();
         }
         try {
-            User user = userRepository.findByEmail(email);
-            return user;
+            return userRepository.findByEmail(email);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

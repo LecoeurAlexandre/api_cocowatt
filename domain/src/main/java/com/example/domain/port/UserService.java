@@ -1,8 +1,5 @@
 package com.example.domain.port;
 
-import com.example.domain.entity.Car;
-import com.example.domain.entity.Reservation;
-import com.example.domain.entity.Trip;
 import com.example.domain.entity.User;
 import com.example.domain.exception.*;
 

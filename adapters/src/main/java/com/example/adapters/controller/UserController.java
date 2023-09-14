@@ -28,15 +28,19 @@ public class UserController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<?> post(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone, @RequestParam String email, @RequestParam String password, @RequestParam boolean isAdmin, @RequestParam String imageUrl) {
-        try {
-            userService.createUser(firstName, lastName, phone, email, password, isAdmin, imageUrl);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Utilisateur créé");
-        } catch (Exception e ) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
+
+    // Cette méthode n'est plus censée être appelée, la création d'utilisateur se fait
+    // via la méthode register dans AuthController
+
+//    @PostMapping("/create")
+//    public ResponseEntity<?> post(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone, @RequestParam String email, @RequestParam String password, @RequestParam boolean isAdmin, @RequestParam String imageUrl) {
+//        try {
+//            userService.createUser(firstName, lastName, phone, email, password, isAdmin, imageUrl);
+//            return ResponseEntity.status(HttpStatus.CREATED).body("Utilisateur créé");
+//        } catch (Exception e ) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//    }
 
     @GetMapping("")
     public ResponseEntity<?> getAll() {
@@ -58,7 +62,7 @@ public class UserController {
         }
     }
     @GetMapping("/adm/{id}")
-    public ResponseEntity getByIdAdmin(@PathVariable int id) {
+    public ResponseEntity<?> getByIdAdmin(@PathVariable int id) {
         try {
             UserManagementResponseDTO userDtoResponse = modelMapper.map(userService.findById(id), UserManagementResponseDTO.class);
             return ResponseEntity.ok(userDtoResponse);

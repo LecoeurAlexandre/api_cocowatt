@@ -1,7 +1,6 @@
 package com.example.config;
 
 
-import com.example.domain.entity.Rating;
 import com.example.domain.service.*;
 import com.example.infrastructure.repository.impl.*;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;

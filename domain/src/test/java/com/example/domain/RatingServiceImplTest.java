@@ -1,4 +1,4 @@
-package com.example.domain.RatingServiceImpl;
+package com.example.domain;
 
 import com.example.domain.entity.Rating;
 import com.example.domain.exception.EmptyParameterException;
@@ -36,9 +36,7 @@ public class RatingServiceImplTest {
         String comment = "";
         int userId = 2;
 
-        Assertions.assertThrows(EmptyParameterException.class, ()->{
-            ratingService.createRating(value, comment, userId);
-        });
+        Assertions.assertThrows(EmptyParameterException.class, ()-> ratingService.createRating(value, comment, userId));
     }
 
     @Test
@@ -47,9 +45,7 @@ public class RatingServiceImplTest {
         String comment = null;
         int userId = 2;
 
-        Assertions.assertThrows(EmptyParameterException.class, ()->{
-            ratingService.createRating(value, comment, userId);
-        });
+        Assertions.assertThrows(EmptyParameterException.class, ()-> ratingService.createRating(value, comment, userId));
     }
 
     @Test
@@ -58,9 +54,7 @@ public class RatingServiceImplTest {
         String comment = "Ceci est un commentaire";
         int userId = 0;
 
-        Assertions.assertThrows(InvalidIdException.class, ()->{
-            ratingService.createRating(value, comment, userId);
-        });
+        Assertions.assertThrows(InvalidIdException.class, ()-> ratingService.createRating(value, comment, userId));
     }
 
     @Test
@@ -69,9 +63,7 @@ public class RatingServiceImplTest {
         String comment = "Ceci est un commentaire";
         int userId = -1;
 
-        Assertions.assertThrows(InvalidIdException.class, ()->{
-            ratingService.createRating(value, comment, userId);
-        });
+        Assertions.assertThrows(InvalidIdException.class, ()-> ratingService.createRating(value, comment, userId));
     }
 
     @Test
@@ -80,9 +72,7 @@ public class RatingServiceImplTest {
         String comment = "Ceci est un commentaire";
         int userId = 4;
 
-        Assertions.assertThrows(InvalidValueException.class, ()->{
-            ratingService.createRating(value, comment, userId);
-        });
+        Assertions.assertThrows(InvalidValueException.class, ()-> ratingService.createRating(value, comment, userId));
     }
 
     @Test
@@ -91,9 +81,7 @@ public class RatingServiceImplTest {
         String comment = "Ceci est un commentaire";
         int userId = 4;
 
-        Assertions.assertThrows(InvalidValueException.class, ()->{
-            ratingService.createRating(value, comment, userId);
-        });
+        Assertions.assertThrows(InvalidValueException.class, ()-> ratingService.createRating(value, comment, userId));
     }
 
 //    @Test
@@ -120,36 +108,28 @@ public class RatingServiceImplTest {
     void getByIdTestIdIsEmpty_ShouldRaiseEmptyParameterException() {
         String id = "";
 
-        Assertions.assertThrows(EmptyParameterException.class, ()->{
-            ratingService.getById(id);
-        });
+        Assertions.assertThrows(EmptyParameterException.class, ()-> ratingService.getById(id));
     }
 
     @Test
     void getByIdTestIdIsNull_ShouldRaiseEmptyParameterException() {
         String id = null;
 
-        Assertions.assertThrows(EmptyParameterException.class, ()->{
-            ratingService.getById(id);
-        });
+        Assertions.assertThrows(EmptyParameterException.class, ()-> ratingService.getById(id));
     }
 
     @Test
     void getByIdTestIdIs0_ShouldRaiseInvalidIdException() {
         String id = "0";
 
-        Assertions.assertThrows(InvalidIdException.class, ()->{
-            ratingService.getById(id);
-        });
+        Assertions.assertThrows(InvalidIdException.class, ()-> ratingService.getById(id));
     }
 
     @Test
     void getByIdTestIdIsBelow0_ShouldRaiseInvalidIdException() {
         String id = "-1";
 
-        Assertions.assertThrows(InvalidIdException.class, ()->{
-            ratingService.getById(id);
-        });
+        Assertions.assertThrows(InvalidIdException.class, ()-> ratingService.getById(id));
     }
 
     // 3) Tests pour méthode "getAllByUserId"
@@ -158,18 +138,14 @@ public class RatingServiceImplTest {
     void getAllByUserIdTestIdIs0_ShouldRaiseInvalidIdException() {
         int id = 0;
 
-        Assertions.assertThrows(InvalidIdException.class, ()->{
-            ratingService.getAllByUserId(id);
-        });
+        Assertions.assertThrows(InvalidIdException.class, ()-> ratingService.getAllByUserId(id));
     }
 
     @Test
     void getAllByUserIdTestIdIsBelow0_ShouldRaiseInvalidIdException() {
         int id = -1;
 
-        Assertions.assertThrows(InvalidIdException.class, ()->{
-            ratingService.getAllByUserId(id);
-        });
+        Assertions.assertThrows(InvalidIdException.class, ()-> ratingService.getAllByUserId(id));
     }
 
     // 4) Tests pour méthode "delete"
@@ -178,36 +154,28 @@ public class RatingServiceImplTest {
     void deleteTestIdIsNull_ShouldRaiseEmptyParameterException() {
         String id = null;
 
-        Assertions.assertThrows(EmptyParameterException.class, ()->{
-            ratingService.delete(id);
-        });
+        Assertions.assertThrows(EmptyParameterException.class, ()-> ratingService.delete(id));
     }
 
     @Test
     void deleteTestIdIsEmpty_ShouldRaiseEmptyParameterException() {
         String id = null;
 
-        Assertions.assertThrows(EmptyParameterException.class, ()->{
-            ratingService.delete(id);
-        });
+        Assertions.assertThrows(EmptyParameterException.class, ()-> ratingService.delete(id));
     }
 
     @Test
     void deleteTestIdIs0_ShouldRaiseInvalidIdException() {
         String id = "0";
 
-        Assertions.assertThrows(InvalidIdException.class, ()->{
-            ratingService.delete(id);
-        });
+        Assertions.assertThrows(InvalidIdException.class, ()-> ratingService.delete(id));
     }
 
     @Test
     void deleteTestIdIsBelow0_ShouldRaiseInvalidIdException() {
         String id = "-1";
 
-        Assertions.assertThrows(InvalidIdException.class, ()->{
-            ratingService.delete(id);
-        });
+        Assertions.assertThrows(InvalidIdException.class, ()-> ratingService.delete(id));
     }
 
     // 5) Tests pour méthode "update"
@@ -218,9 +186,7 @@ public class RatingServiceImplTest {
 
         Rating rating = new Rating(5,"blabla", LocalDate.now(),2);
 
-        Assertions.assertThrows(EmptyParameterException.class, ()->{
-            ratingService.update(id, rating);
-        });
+        Assertions.assertThrows(EmptyParameterException.class, ()-> ratingService.update(id, rating));
     }
 
     @Test
@@ -229,9 +195,7 @@ public class RatingServiceImplTest {
 
         Rating rating = new Rating(5,"blabla", LocalDate.now(),2);
 
-        Assertions.assertThrows(InvalidIdException.class, ()->{
-            ratingService.update(id, rating);
-        });
+        Assertions.assertThrows(InvalidIdException.class, ()-> ratingService.update(id, rating));
     }
 
     @Test
@@ -240,9 +204,7 @@ public class RatingServiceImplTest {
 
         Rating rating = new Rating(5,"blabla", LocalDate.now(),2);
 
-        Assertions.assertThrows(InvalidIdException.class, ()->{
-            ratingService.update(id, rating);
-        });
+        Assertions.assertThrows(InvalidIdException.class, ()-> ratingService.update(id, rating));
     }
 
     @Test
@@ -251,9 +213,7 @@ public class RatingServiceImplTest {
 
         Rating rating = null;
 
-        Assertions.assertThrows(NullPointerException.class, ()->{
-            ratingService.update(id, rating);
-        });
+        Assertions.assertThrows(NullPointerException.class, ()-> ratingService.update(id, rating));
     }
 
 

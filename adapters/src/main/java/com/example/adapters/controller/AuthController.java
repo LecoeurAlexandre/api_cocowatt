@@ -4,9 +4,7 @@ package com.example.adapters.controller;
 import com.example.adapters.entity.LoginRequestDTO;
 import com.example.adapters.entity.LoginResponseDTO;
 import com.example.adapters.entity.RegisterRequestDTO;
-import com.example.adapters.entity.RegisterResponseDTO;
 import com.example.adapters.security.JWTGenerator;
-import com.example.domain.entity.User;
 import com.example.domain.port.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -52,7 +50,7 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
         try {
             registerRequestDTO.setAdmin(false);
-            User user = userService.createUser(
+            userService.createUser(
                     registerRequestDTO.getFirstName(),
                     registerRequestDTO.getLastName(),
                     registerRequestDTO.getPhone(),

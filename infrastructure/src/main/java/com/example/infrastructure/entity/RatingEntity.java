@@ -1,6 +1,5 @@
 package com.example.infrastructure.entity;
 
-import jakarta.annotation.security.DenyAll;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -26,7 +26,7 @@ public class StatController {
     }
 
     @GetMapping("")
-    public ResponseEntity get() {
+    public ResponseEntity<?> get() {
         try {
             StatDTO statDTO = new StatDTO();
             statDTO.setDrivers(carService.findAll().size());
