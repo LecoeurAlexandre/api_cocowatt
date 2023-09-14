@@ -5,6 +5,7 @@ import com.example.domain.port.CarService;
 import com.example.domain.port.ReservationService;
 import com.example.domain.port.TripService;
 import com.example.domain.port.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class StatController {
         this.carService = carService;
     }
 
+    @Operation(summary = "Récupère les statistiques", description = "Permet de récupèrer un objet contenant des statistiques sur les différents objets de l'API")
     @GetMapping("")
     public ResponseEntity<?> get() {
         try {

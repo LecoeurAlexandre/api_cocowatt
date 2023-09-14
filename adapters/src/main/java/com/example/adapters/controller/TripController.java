@@ -4,6 +4,7 @@ import com.example.adapters.entity.TripDtoRequest;
 import com.example.adapters.entity.TripDtoResponse;
 import com.example.domain.entity.Trip;
 import com.example.domain.port.TripService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class TripController {
         this.tripService = tripService;
     }
 
+    @Operation(summary = "Création de trajet", description = "Permet de créer un objet Trip")
     @PostMapping("")
     public ResponseEntity<?> post(@RequestParam String startingPoint, @RequestParam String endPoint, @RequestParam String localDate, @RequestParam String localTime, @RequestParam int availableSeats, @RequestParam int distance, @RequestParam int userId) {
         try {
@@ -34,6 +36,7 @@ public class TripController {
         }
     }
 
+    @Operation(summary = "Récupère les trajets", description = "Permet de récupèrer une liste avec tout les objets Trip")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         try {
@@ -48,6 +51,7 @@ public class TripController {
         }
     }
 
+    @Operation(summary = "Récupère trajet par Id", description = "Permet de récupèrer un objet Trip selon son Id")
     @GetMapping("/id/{id}")
     public ResponseEntity<?> getById(@PathVariable int id) {
         try {
@@ -58,6 +62,7 @@ public class TripController {
         }
     }
 
+    @Operation(summary = "Suppression de trajet", description = "Permet de supprimer un objet Trip selon son Id")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
         try {
@@ -68,6 +73,7 @@ public class TripController {
         }
     }
 
+    @Operation(summary = "Mise à jour de trajet", description = "Permet de mettre à jour un objet Trip")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable int id, @RequestBody TripDtoRequest tripDtoRequest) {
         try {

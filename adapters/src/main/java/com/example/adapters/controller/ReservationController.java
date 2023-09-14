@@ -4,6 +4,7 @@ import com.example.adapters.entity.ReservationDtoRequest;
 import com.example.adapters.entity.ReservationDtoResponse;
 import com.example.domain.entity.Reservation;
 import com.example.domain.port.ReservationService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-
+    @Operation(summary = "Création de réservation", description = "Permet de créer un objet Reservation")
     @PostMapping("")
     public ResponseEntity<?> post(@RequestBody ReservationDtoRequest reservationDtoRequest) {
         try {
@@ -38,6 +39,7 @@ public class ReservationController {
         }
     }
 
+    @Operation(summary = "Récupère les réservations", description = "Permet de récupèrer une liste avec tout les objets Reservation")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         try {
@@ -52,6 +54,7 @@ public class ReservationController {
         }
     }
 
+    @Operation(summary = "Récupère réservation par id", description = "Permet de récupèrer un objet Reservation selon son Id")
     @GetMapping("/id/{id}")
     public ResponseEntity<?> getById(@PathVariable int id) {
         try {
@@ -62,6 +65,7 @@ public class ReservationController {
         }
     }
 
+    @Operation(summary = "Suppression de réservation", description = "Permet de supprimer un objet Reservation selon son Id")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
         try {
@@ -72,6 +76,7 @@ public class ReservationController {
         }
     }
 
+    @Operation(summary = "Mise à jour de réservation", description = "Permet de mettre à jour un objet Reservation")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable int id, @RequestBody ReservationDtoRequest reservationDtoRequest) {
         try {

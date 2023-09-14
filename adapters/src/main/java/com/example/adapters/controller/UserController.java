@@ -7,6 +7,7 @@ import com.example.adapters.entity.UsersListDTO;
 import com.example.domain.entity.User;
 
 import com.example.domain.port.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,8 @@ public class UserController {
 //        }
 //    }
 
+
+    @Operation(summary = "Récupère les utilisateurs", description = "Permet de récupèrer une liste avec tout les objets User")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         List<UserDtoResponse> userDtoResponseList = new ArrayList<>();
@@ -52,6 +55,7 @@ public class UserController {
         return ResponseEntity.ok(userDtoResponseList);
     }
 
+    @Operation(summary = "Récupère utilisateur par Id", description = "Permet de récupèrer un objet User ayant pour Id celui indiqué dans le chemin")
     @GetMapping("/id/{id}")
     public ResponseEntity<?> getById(@PathVariable int id) {
         try {
@@ -61,6 +65,7 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @GetMapping("/adm/{id}")
     public ResponseEntity<?> getByIdAdmin(@PathVariable int id) {
         try {
@@ -71,6 +76,7 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Récupère utilisateur par nom de famille", description = "Permet de récupérer un objet User ayant pour lastName celui indiqué dans le chemin")
     @GetMapping("/lastname/{lastName}")
     public ResponseEntity<?> getAllByLastName(@PathVariable String lastName) {
         try {
@@ -87,6 +93,7 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Mise à jour utilisateur", description = "Permet de mettre à jour un objet User")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable int id, @RequestBody UserDtoRequest userDtoRequest) {
         try {
@@ -98,6 +105,7 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Suppression utilisateur", description = "Permet de supprimer un objet User via son Id")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
         try {
@@ -108,6 +116,7 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Associer utilisateur à une voiture", description = "Permet d'associer un objet User à un objet Car via leur Id")
     @PostMapping("/{userId}/addToCar/{carId}")
     public ResponseEntity<?> addUserToCar(@PathVariable int userId, @PathVariable int carId) {
         try {

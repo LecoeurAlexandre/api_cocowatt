@@ -3,6 +3,7 @@ package com.example.adapters.controller;
 import com.example.adapters.entity.RatingDtoRequest;
 import com.example.domain.entity.Rating;
 import com.example.domain.port.RatingService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ public class RatingController {
         this.modelMapper = modelMapper;
     }
 
+    @Operation(summary = "Création d'avis", description = "Permet de créer un objet Rating")
     @PostMapping("")
     public ResponseEntity<?> post(@RequestBody RatingDtoRequest ratingDtoRequest) {
         try {
@@ -37,6 +39,7 @@ public class RatingController {
         }
     }
 
+    @Operation(summary = "Récupère les avis", description = "Permet de récupèrer une liste avec tout les objets Rating")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         try {
@@ -47,6 +50,7 @@ public class RatingController {
         }
     }
 
+    @Operation(summary = "Récupère avis par Id", description = "Permet de récupèrer un objet Rating ayant pour Id celui indiqué dans le chemin")
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserRatings(@PathVariable int id) {
         try {
@@ -57,6 +61,7 @@ public class RatingController {
         }
     }
 
+    @Operation(summary = "Suppression d'avis", description = "Permet de supprimer un objet Rating ayant pour Id celui indiqué dans le chemin")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable String id) {
         try {
@@ -67,6 +72,7 @@ public class RatingController {
         }
     }
 
+    @Operation(summary = "Mise à jour avis", description = "Permet de mettre à jour un objet Rating ayant pour Id celui indiqué dans le chemin, en récupérant les attributs de l'objet dans le corps de la requête")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable String id, @RequestBody RatingDtoRequest ratingDtoRequest) {
         try {

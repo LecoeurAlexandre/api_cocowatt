@@ -6,6 +6,7 @@ import com.example.adapters.entity.LoginResponseDTO;
 import com.example.adapters.entity.RegisterRequestDTO;
 import com.example.adapters.security.JWTGenerator;
 import com.example.domain.port.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,7 +31,7 @@ public class AuthController {
         this.generator = generator;
     }
 
-
+    @Operation(summary = "Connexion", description = "Permet de se connecter à l'API, renvoie un token JWT")
     @PostMapping("login")
     public ResponseEntity login(@RequestBody LoginRequestDTO loginRequestDTO) {
         try {
@@ -38,14 +39,13 @@ public class AuthController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             LoginResponseDTO loginResponseDTO = new LoginResponseDTO(generator.generateToken(authentication));
             return ResponseEntity.ok((loginResponseDTO));
-            //return ResponseEntity.ok(LoginResponseDTO.builder().token(generator.generateToken(authentication)).build());
         }catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    //Propriété isAdmin est mise en "false" par défaut, car cette méthode sera appelée lorsque l'utilisateur s'inscrit par lui même
-    //Pour créer un admin il faut passer par la méthode "create" dans "UserController"
+    //L'attribut "isAdmin" est mis en "false" par défaut
+    @Operation(summary = "Inscription", description = "Permet de s'incrire en créant un objet User")
     @PostMapping("register")
     public ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
         try {

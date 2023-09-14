@@ -105,6 +105,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    //Lorsqu'on supprime un utilisateur, la voiture qui est associée sera également supprimée
     @Override
     public void delete(int id) throws InvalidIdException, EntityNotFoundException {
         if (id <= 0) {
@@ -114,6 +115,7 @@ public class UserServiceImpl implements UserService {
        try {
            User user = userRepository.findById(id);
            userRepository.delete(user);
+           carRepository.delete(user.getCar());
        } catch (Exception e) {
            throw new RuntimeException(e.getMessage());
        }
